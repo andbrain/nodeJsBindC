@@ -37,7 +37,8 @@ INCS_Debug := \
 	-I/home/anderson/.node-gyp/5.11.0/include/node \
 	-I/home/anderson/.node-gyp/5.11.0/src \
 	-I/home/anderson/.node-gyp/5.11.0/deps/uv/include \
-	-I/home/anderson/.node-gyp/5.11.0/deps/v8/include
+	-I/home/anderson/.node-gyp/5.11.0/deps/v8/include \
+	-I$(srcdir)/node_modules/nan
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=addon' \
@@ -72,7 +73,8 @@ INCS_Release := \
 	-I/home/anderson/.node-gyp/5.11.0/include/node \
 	-I/home/anderson/.node-gyp/5.11.0/src \
 	-I/home/anderson/.node-gyp/5.11.0/deps/uv/include \
-	-I/home/anderson/.node-gyp/5.11.0/deps/v8/include
+	-I/home/anderson/.node-gyp/5.11.0/deps/v8/include \
+	-I$(srcdir)/node_modules/nan
 
 OBJS := \
 	$(obj).target/$(TARGET)/hello.o
