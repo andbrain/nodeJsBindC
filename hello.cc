@@ -1,5 +1,22 @@
 #include <node.h>
 #include <nan.h>
+#include "test.h"
+
+std::vector<int> ReturnArrayFromName(std::string query){
+  std::vector<int> resp;
+  // resp.push_back(1);
+  // resp.push_back(3);
+  // resp.push_back(9);
+
+  Test t;
+  t.add(2);
+  t.add(4);
+  t.add(8);
+  t.add(10);
+  resp = t.get();
+  
+  return resp;
+}
 
 namespace demo {
   using v8::FunctionCallbackInfo;
@@ -9,15 +26,33 @@ namespace demo {
   using v8::String;
   using v8::Value;
 
-  void Method(const FunctionCallbackInfo<Value>& args) {
-    // Isolate* isolate = args.GetIsolate();
-    // args.GetReturnValue().Set(String::NewFromUtf8(isolate, "world"));
-    
-    v8::String::Utf8Value nameFromArgs(args[0]->ToString());
-    std::string name = std::string(*nameFromArgs);
-    std::string response = "hello " + name;
+  using v8::Number;
+  using v8::Array;
+  using v8::Exception;
 
-    args.GetReturnValue().Set(Nan::New(response).ToLocalChecked());
+  void Method(const FunctionCallbackInfo<Value>& args) {
+    Isolate* isolate = args.GetIsolate();
+    
+    // Make sure there is an argument
+    if(args.Length() != 1){
+      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Need an argument!")));
+      return;
+    }
+
+    // convert first arg to std::string and call c++ function
+    v8::String::Utf8Value nameFromArgs(args[0]->ToString());
+    std::string query = std::string(*nameFromArgs);
+    std::vector<int> vec = ReturnArrayFromName(query);
+
+
+    // Pack std::vector into a JS array
+    Local<Array> result = Array::New(isolate);
+    for (unsigned int i = 0; i < vec.size(); ++i)
+    {
+      result->Set(i, Number::New(isolate, vec[i]));
+    }
+
+    args.GetReturnValue().Set(result);
   }
 
   void init(Local<Object> exports) {

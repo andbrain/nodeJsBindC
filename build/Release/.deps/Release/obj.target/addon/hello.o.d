@@ -25,7 +25,7 @@ Release/obj.target/addon/hello.o: ../hello.cc \
  ../node_modules/nan/nan_implementation_12_inl.h \
  ../node_modules/nan/nan_persistent_12_inl.h \
  ../node_modules/nan/nan_weak.h ../node_modules/nan/nan_object_wrap.h \
- ../node_modules/nan/nan_typedarray_contents.h
+ ../node_modules/nan/nan_typedarray_contents.h ../test.h
 ../hello.cc:
 /home/anderson/.node-gyp/5.11.0/include/node/node.h:
 /home/anderson/.node-gyp/5.11.0/include/node/v8.h:
@@ -54,3 +54,4 @@ Release/obj.target/addon/hello.o: ../hello.cc \
 ../node_modules/nan/nan_weak.h:
 ../node_modules/nan/nan_object_wrap.h:
 ../node_modules/nan/nan_typedarray_contents.h:
+../test.h:
