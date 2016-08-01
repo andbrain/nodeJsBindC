@@ -223,7 +223,7 @@ void Qprocessor::CalculateSimilarity(unordered_map<string,double> *weight, vecto
 	double sim;
 	string strDoc;
 	Score *score;
-	for (w; w != weight->end(); ++w)
+	for (; w != weight->end(); ++w)
 	{
 		strDoc = w->first;
 		Trim(strDoc);

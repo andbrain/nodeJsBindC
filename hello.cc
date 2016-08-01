@@ -8,8 +8,8 @@ std::vector<int> ReturnArrayFromName(std::string query){
   std::vector<int> resp;
 
   Engine *e = new Engine();
-
-  resp = e->init("test");
+  e->init();
+  resp = e->process("Is CF mucus abnormal?");
   // resp.push_back(1);
   // resp.push_back(3);
   delete e;

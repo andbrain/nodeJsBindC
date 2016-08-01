@@ -7,22 +7,23 @@ Engine::Engine()
 
 Engine::~Engine()
 {
+	delete mProcessor;
+	delete mQuery;
 	cout << "Ending engine.." << endl;
 }
 
-vector<int> Engine::init(string query)
+void Engine::init()
 {
 	//Initialize, and expect to read indexed base
-	vector<Document *>* vQuery = new vector<Document *>();
-	Qprocessor *proc = new Qprocessor(vQuery); 
-	proc->Initialize();
+	vector<Document *>* mQuery = new vector<Document *>();
+	mProcessor = new Qprocessor(mQuery); 
+	mProcessor->Initialize();	
+}
 
-	// // Search
-	string fakeQuery = "Can one distinguish between the effects of mucus hypersecretion and infection on the submucosal glands of the respiratory tract in CF?";
-	vector<string> words = proc->SelectWords(fakeQuery);
-	vector<int> topn = proc->ProcessQuery(words, 5);
-	delete proc;
-	delete vQuery;
+vector<int> Engine::process(string query)
+{
+	vector<string> words = mProcessor->SelectWords(query);
+	vector<int> topn = mProcessor->ProcessQuery(words, 5);
 
 	return topn;
 }

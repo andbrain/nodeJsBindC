@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <vector>
-// #include "tads/qparser.h"
+#include "tads/qparser.h"
 #include "tads/qprocessor.h"
-// #include "tads/ireader.h"
+#include "tads/ireader.h"
 #include "tads/document.h"
 
 using namespace std;
@@ -15,7 +15,12 @@ class Engine
 public:
 	Engine();
 	~Engine();
-	vector<int> init(string query);
+	void init();
+	vector<int> process(string query);
+
+private:
+	vector<Document *>* mQuery;
+	Qprocessor* mProcessor;
 };
 
 #endif
