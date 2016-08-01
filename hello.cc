@@ -1,20 +1,18 @@
 #include <node.h>
-#include <nan.h>
-#include "test.h"
+// #include <nan.h>
+#include <iostream>
+// #include "test.h"
+#include "c/engine.h"
 
 std::vector<int> ReturnArrayFromName(std::string query){
   std::vector<int> resp;
+
+  Engine *e = new Engine();
+
+  resp = e->init("test");
   // resp.push_back(1);
   // resp.push_back(3);
-  // resp.push_back(9);
-
-  Test t;
-  t.add(2);
-  t.add(4);
-  t.add(8);
-  t.add(10);
-  resp = t.get();
-  
+  delete e;
   return resp;
 }
 
