@@ -19,8 +19,7 @@ public:
 	vector<int> process(string query);
 
 private:
-	vector<Document *>* mQuery;
-	Qprocessor* mProcessor;
+	Qprocessor mProcessor;
 };
 
 #endif

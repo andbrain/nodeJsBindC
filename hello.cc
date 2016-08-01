@@ -4,15 +4,27 @@
 // #include "test.h"
 #include "c/engine.h"
 
-std::vector<int> ReturnArrayFromName(std::string query){
-  std::vector<int> resp;
+class MyEngine // or whatever name you like
+{
+public:
+   MyEngine(){ m_engine.init(); }//or create it here? whatever solution suits your way of creating the data
 
-  Engine *e = new Engine();
-  e->init();
-  resp = e->process("Is CF mucus abnormal?");
-  // resp.push_back(1);
-  // resp.push_back(3);
-  delete e;
+   // ~MyEngine() { delete m_engine; } // THAT's the important part!
+
+    Engine getInstance() const { return m_engine; } // or whatever accessor you need, if you need one
+
+private:
+    Engine m_engine;
+};
+
+// static MyEngine engine;
+
+std::vector<int> ProcessQuery(std::string query){
+  std::vector<int> resp;
+  Engine e;
+  e.init();
+  resp = e.process("Is CF mucus abnormal?");
+  
   return resp;
 }
 
@@ -28,7 +40,15 @@ namespace demo {
   using v8::Array;
   using v8::Exception;
 
-  void Method(const FunctionCallbackInfo<Value>& args) {
+  void Create(const FunctionCallbackInfo<Value>& args) {
+    args.GetReturnValue();
+  }
+
+  void Close(const FunctionCallbackInfo<Value>& args) {
+    args.GetReturnValue();
+  }
+
+  void Process(const FunctionCallbackInfo<Value>& args) {
     Isolate* isolate = args.GetIsolate();
     
     // Make sure there is an argument
@@ -40,8 +60,7 @@ namespace demo {
     // convert first arg to std::string and call c++ function
     v8::String::Utf8Value nameFromArgs(args[0]->ToString());
     std::string query = std::string(*nameFromArgs);
-    std::vector<int> vec = ReturnArrayFromName(query);
-
+    std::vector<int> vec = ProcessQuery(query);
 
     // Pack std::vector into a JS array
     Local<Array> result = Array::New(isolate);
@@ -54,7 +73,9 @@ namespace demo {
   }
 
   void init(Local<Object> exports) {
-    NODE_SET_METHOD(exports, "hello", Method);
+    NODE_SET_METHOD(exports, "init", Create);
+    NODE_SET_METHOD(exports, "process", Process);
+    NODE_SET_METHOD(exports, "close", Close);
   }
 
   NODE_MODULE(addon, init)

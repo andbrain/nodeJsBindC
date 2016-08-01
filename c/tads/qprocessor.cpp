@@ -1,9 +1,8 @@
 #include "qprocessor.h"
 
-Qprocessor::Qprocessor(vector<Document *>* base)
+Qprocessor::Qprocessor()
 {
 	cout << "starting qprocessor.." << endl;
-	this->base = base;
 
 	ir = new Ireader("dataset/base");
 	ir->Process();
@@ -12,14 +11,8 @@ Qprocessor::Qprocessor(vector<Document *>* base)
 
 Qprocessor::~Qprocessor()
 {
-	cout << "finishing qprocessor.." << endl;
-
-	for (unsigned int i = 0; i < queries.size(); ++i)
-	{
-		delete queries[i];
-	}
-
 	delete ir;
+	cout << "finishing qprocessor.." << endl;
 }
 
 void Qprocessor::RetrieveNorma(string path)
@@ -51,15 +44,6 @@ void Qprocessor::RetrieveNorma(string path)
 void Qprocessor::Initialize()
 {
 	LoadStopWords();
-
-	Query *query;
-
-	for (vector<Document *>::iterator i = base->begin(); i != base->end(); ++i)
-	{
-		query = new Query();
-		query->content = SelectWords((*i)->GetAttribute("QU"));
-		queries.push_back(query);
-	}
 }
 
 void Qprocessor::LoadStopWords()
@@ -104,39 +88,6 @@ vector<string> Qprocessor::SelectWords(string question)
 	}
 
 	return terms;
-}
-
-int Qprocessor::Process()
-{
-	cout << "..Processing queries" << endl;
-	struct timeval begin, end;
-	int counter = 1;
-	string inf;
-
-	//Proccess each query
-	for (vector<Query *>::iterator q = queries.begin(); q != queries.end(); ++q)
-	{
-		inf = "Query: " + to_string(counter);
-		cout << inf << endl;
-
-		counter++;
-
-		/*Measuring time elapsed*/
- 		gettimeofday(&begin, NULL);
-		
-		vector<int> topn = ProcessQuery((*q)->content, 10);
-		
-		for (unsigned int i = 0; i < topn.size(); ++i)
-		{
-			cout << topn[i] << endl;
-		}
-
-		gettimeofday(&end, NULL);
-		int tmili = (int) (1000 * (end.tv_sec - begin.tv_sec) + (end.tv_usec - begin.tv_usec) / 1000);
-		cout << "Time elapsed:" << (double)tmili/1000 << " (s)" << endl;
-	}
-
-	return 0;
 }
 
 vector<int> Qprocessor::ProcessQuery(vector<string> qWords, int topn)

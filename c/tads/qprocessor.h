@@ -26,6 +26,7 @@ class Qprocessor
 {
 public:
 	Qprocessor(vector<Document *>* base);
+	Qprocessor();
 	~Qprocessor();
 	void Initialize();
 	int Process();
@@ -34,8 +35,6 @@ public:
 
 private:
 	Ireader *ir;
-	vector<Query *> queries;
-	vector<Document *>* base;
 	unordered_map<string,int> stopwords;
 	unordered_map<string,double> norma;
 
@@ -50,9 +49,7 @@ private:
 	int CalculateParcials(double idf, double gain, Doc *doc, unordered_map<string,double> *weight);
 	void CalculateSimilarity(unordered_map<string,double> *weight, vector<Score *> *ranking);
 	void CreateRanking(vector<Score *> *ranking);
-
 	vector<int> GetTopN(int n, vector<Score *> *ranking);
-
 	void DeleteRanking(vector<Score *> *ranking);
 };
 
