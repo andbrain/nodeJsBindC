@@ -1,0 +1,11 @@
+{
+  "development": {
+    "server_port": "3000"
+  },
+  "test": {
+    "server_port": "3030"
+  },
+  "production": {
+    "server_port": "80"
+  }
+}
