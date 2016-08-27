@@ -3,7 +3,7 @@
     {
     	"target_name": "addon",
     	"sources": [ 
-    		"hello.cc",
+    		"binder.cc",
         "c/engine.cpp",
         "c/tads/document.cpp",
         "c/tads/qprocessor.cpp",

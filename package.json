@@ -1,0 +1,28 @@
+{
+  "name": "binder_c",
+  "version": "1.0.0",
+  "description": "Binder C++ for NodeJS",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andbrain/nodeJsBindC.git"
+  },
+  "keywords": [
+    "binder",
+    "nodejs",
+    "c++"
+  ],
+  "author": "Anderson P.",
+  "license": "ISC",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/andbrain/nodeJsBindC/issues"
+  },
+  "homepage": "https://github.com/andbrain/nodeJsBindC#readme"
+}
