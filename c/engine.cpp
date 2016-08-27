@@ -17,7 +17,10 @@ void Engine::init()
 
 vector<int> Engine::process(string query)
 {
-	vector<string> words = mProcessor.SelectWords(query);
+	cout << "Quering..." << endl;
+	cout << query << endl;
+	string q = "Is CF mucus abnormal?";
+	vector<string> words = mProcessor.SelectWords(q);
 	vector<int> topn = mProcessor.ProcessQuery(words, 10);
 
 	return topn;
